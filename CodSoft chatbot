@@ -1,0 +1,65 @@
+import turtle
+import datetime
+import random
+
+screen = turtle.Screen()
+screen.title("Chatbot with Turtle Graphics")
+screen.setup(width=600, height=400)
+screen.bgcolor("lightblue")
+
+user_display = turtle.Turtle()
+user_display.hideturtle()
+user_display.penup()
+user_display.setpos(-290, 150)
+
+bot_display = turtle.Turtle()
+bot_display.hideturtle()
+bot_display.penup()
+bot_display.setpos(-290, 100)
+
+def display_user_input(user_input):
+    user_display.clear()
+    user_display.write("You: " + user_input, font=("Arial", 14, "normal"))
+
+
+def display_chatbot_response(response):
+    bot_display.clear()
+    bot_display.write("Chatbot: " + response, font=("Arial", 14, "normal"))
+
+def chatbot_response(user_input):
+    if "hello chatbot" in user_input.lower():
+        return "hello sir, how can i help you"
+    elif "how are you" in user_input.lower():
+        return "I'm functioning perfectly fine!"
+    elif "what is your name" in user_input.lower():
+        return "I'm  chatbot!"
+    elif "today's date" in user_input.lower():
+        return "Today's date is " + datetime.datetime.now().strftime("%d-%m-%y") + "."
+    elif "what time is it" in user_input.lower():
+        return "The current time is " + datetime.datetime.now().strftime("%H:%M") + "."
+    elif "weather" in user_input.lower():
+        return "The weather is " + random.choice(["sunny", "cloudy"]) + " today."
+    elif "bye" in user_input.lower():
+        return "Goodbye! Have a great day!"
+    elif "thank you chatbot" in user_input.lower():
+        return "You're welcome!"
+    else:
+        try:
+            result =eval(user_input)
+            return "The result is: " + str(result)
+        except Exception as e:
+            return "I'm sorry, I didn't understand that. Can you please rephrase?"
+
+def main():
+    display_user_input("")
+    display_chatbot_response("Hello! How can I assist you?")
+    while True:
+        user_input = screen.textinput("You", "You:")
+        display_user_input(user_input)
+        response = chatbot_response(user_input)
+        display_chatbot_response(response)
+        if "bye" in user_input.lower():
+            break
+
+if __name__ == "__main__":
+    main()
